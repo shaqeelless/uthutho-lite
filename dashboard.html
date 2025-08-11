@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uthutho Transport - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Uthutho</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="routes.html">Routes</a></li>
+                <li><a href="stops.html">Stops</a></li>
+                <li><a href="hubs.html">Hubs</a></li>
+                <li><a href="index.html" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Welcome Back!</h1>
+            <p>Quick access to your transport information</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" id="globalSearch" placeholder="Search routes, stops, or hubs...">
+                <button class="btn-primary" onclick="performSearch()">Search</button>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3>Quick Routes</h3>
+                <div class="quick-links">
+                    <a href="routes.html" class="quick-link">View All Routes</a>
+                    <a href="#" class="quick-link">Popular Routes</a>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Nearby Stops</h3>
+                <div class="quick-links">
+                    <a href="stops.html" class="quick-link">Find Stops</a>
+                    <a href="#" class="quick-link">Stop Updates</a>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Transport Hubs</h3>
+                <div class="quick-links">
+                    <a href="hubs.html" class="quick-link">View Hubs</a>
+                    <a href="#" class="quick-link">Hub Status</a>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>My Favorites</h3>
+                <div id="favoritesList">
+                    <!-- Favorites will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js" type="module"></script>
+</body>
+</html>

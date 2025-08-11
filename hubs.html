@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uthutho Transport - Hubs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Uthutho</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="routes.html">Routes</a></li>
+                <li><a href="stops.html">Stops</a></li>
+                <li><a href="hubs.html" class="active">Hubs</a></li>
+                <li><a href="index.html" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Transport Hubs</h1>
+            <div class="search-bar">
+                <input type="text" id="hubSearch" placeholder="Search hubs...">
+                <button class="btn-primary" onclick="searchHubs()">Search</button>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="filter-sidebar">
+                <h3>Filters</h3>
+                <div class="filter-group">
+                    <label>Hub Size</label>
+                    <select id="hubSizeFilter" onchange="filterHubs()">
+                        <option value="">All Sizes</option>
+                        <option value="major">Major Hub</option>
+                        <option value="medium">Medium Hub</option>
+                        <option value="small">Small Hub</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Services</label>
+                    <select id="servicesFilter" onchange="filterHubs()">
+                        <option value="">All Services</option>
+                        <option value="shops">Shopping</option>
+                        <option value="food">Food Court</option>
+                        <option value="parking">Parking</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div id="hubsList" class="hubs-grid">
+                    <!-- Hubs will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js" type="module"></script>
+</body>
+</html>

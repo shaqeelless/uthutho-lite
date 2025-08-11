@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uthutho Transport - Routes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Uthutho</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="routes.html" class="active">Routes</a></li>
+                <li><a href="stops.html">Stops</a></li>
+                <li><a href="hubs.html">Hubs</a></li>
+                <li><a href="index.html" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Transport Routes</h1>
+            <div class="search-bar">
+                <input type="text" id="routeSearch" placeholder="Search routes...">
+                <button class="btn-primary" onclick="searchRoutes()">Search</button>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="filter-sidebar">
+                <h3>Filters</h3>
+                <div class="filter-group">
+                    <label>Route Type</label>
+                    <select id="routeTypeFilter" onchange="filterRoutes()">
+                        <option value="">All Types</option>
+                        <option value="bus">Bus</option>
+                        <option value="minibus">Minibus</option>
+                        <option value="train">Train</option>
+                        <option value="taxi">Taxi</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Area</label>
+                    <select id="areaFilter" onchange="filterRoutes()">
+                        <option value="">All Areas</option>
+                        <option value="cbd">CBD</option>
+                        <option value="sandton">Sandton</option>
+                        <option value="soweto">Soweto</option>
+                        <option value="alexandra">Alexandra</option>
+                        <option value="randburg">Randburg</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div id="routesList" class="routes-grid">
+                    <!-- Routes will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js" type="module"></script>
+</body>
+</html>
