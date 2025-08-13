@@ -17,6 +17,19 @@ export const signUp = async (email, password, fullName) => {
     }
   })
   
+  // Handle specific server errors
+  if (error) {
+    if (error.message.includes('Database error saving new user')) {
+      return { 
+        data, 
+        error: { 
+          ...error, 
+          message: 'Account creation is temporarily unavailable. Please try again later or contact support.' 
+        } 
+      }
+    }
+  }
+  
   if (data.user && !error) {
     // Create profile
     const { error: profileError } = await supabase

@@ -104,6 +104,7 @@ function initializeSignup() {
         const { data, error } = await signUp(email, password, fullName)
         
         if (error) {
+            console.error('Signup error:', error)
             alert('Signup failed: ' + error.message)
             submitBtn.textContent = 'Create Account'
             submitBtn.disabled = false
