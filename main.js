@@ -104,12 +104,25 @@ function initializeSignup() {
         const { data, error } = await signUp(email, password, fullName)
         
         if (error) {
-            console.error('Signup error:', error)
-            alert('Signup failed: ' + error.message)
+            console.error('Signup error details:', error)
+            
+            // Provide more specific error messages
+            let errorMessage = error.message
+            if (error.message.includes('Database error') || error.message.includes('unexpected_failure')) {
+                errorMessage = 'There appears to be a server configuration issue. Please try again in a few minutes or contact support.'
+            } else if (error.message.includes('User already registered')) {
+                errorMessage = 'An account with this email already exists. Please try logging in instead.'
+            } else if (error.message.includes('Invalid email')) {
+                errorMessage = 'Please enter a valid email address.'
+            } else if (error.message.includes('Password')) {
+                errorMessage = 'Password must be at least 6 characters long.'
+            }
+            
+            alert('Signup failed: ' + errorMessage)
             submitBtn.textContent = 'Create Account'
             submitBtn.disabled = false
         } else {
-            alert('Account created successfully! Please check your email to verify your account.')
+            alert('Account created successfully! You can now log in.')
             window.location.href = 'index.html'
         }
     })

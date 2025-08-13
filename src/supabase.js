@@ -7,45 +7,70 @@ export const supabase = createClient(supabaseUrl, supabaseKey)
 
 // Auth helpers
 export const signUp = async (email, password, fullName) => {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        full_name: fullName
-      }
-    }
-  })
-  
-  // Handle specific server errors
-  if (error) {
-    if (error.message.includes('Database error saving new user')) {
-      return { 
-        data, 
-        error: { 
-          ...error, 
-          message: 'Account creation is temporarily unavailable. Please try again later or contact support.' 
-        } 
-      }
-    }
-  }
-  
-  if (data.user && !error) {
-    // Create profile
-    const { error: profileError } = await supabase
-      .from('profiles')
-      .insert([
-        {
-          id: data.user.id,
-          first_name: fullName.split(' ')[0] || '',
-          last_name: fullName.split(' ').slice(1).join(' ') || '',
+  try {
+    // First, try to sign up without profile creation
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName
         }
-      ])
+      }
+    })
     
-    if (profileError) console.error('Profile creation error:', profileError)
+    // Handle specific server errors
+    if (error) {
+      console.error('Signup error details:', error)
+      
+      if (error.message.includes('Database error saving new user') || 
+          error.message.includes('unexpected_failure')) {
+        return { 
+          data, 
+          error: { 
+            ...error, 
+            message: 'There seems to be a database configuration issue. Please contact support or try again later.' 
+          } 
+        }
+      }
+      
+      return { data, error }
+    }
+    
+    // If signup successful, try to create profile (optional)
+    if (data.user) {
+      try {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert([
+            {
+              id: data.user.id,
+              first_name: fullName.split(' ')[0] || '',
+              last_name: fullName.split(' ').slice(1).join(' ') || '',
+            }
+          ])
+        
+        if (profileError) {
+          console.warn('Profile creation failed, but user account created:', profileError)
+          // Don't fail the entire signup if profile creation fails
+        }
+      } catch (profileErr) {
+        console.warn('Profile creation error:', profileErr)
+        // Continue anyway - user account was created successfully
+      }
+    }
+    
+    return { data, error }
+    
+  } catch (err) {
+    console.error('Unexpected signup error:', err)
+    return { 
+      data: null, 
+      error: { 
+        message: 'An unexpected error occurred during signup. Please try again.' 
+      } 
+    }
   }
-  
-  return { data, error }
 }
 
 export const signIn = async (email, password) => {
